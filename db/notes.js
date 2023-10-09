@@ -21,7 +21,17 @@ class Notes {
     }
 
     addNote(){
-
+        note.id = generateId();
+        return this.getNotes().then(notes => {
+            notes.push(note);
+            return notes;
+        })
+        .then(notes => {
+            return this.write(JSON.stringify(notes));
+        })
+        .then(() => {
+            return note;
+        });
     }
 
     eraseNote(){
