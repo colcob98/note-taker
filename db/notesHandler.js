@@ -11,7 +11,7 @@ class Notes {
     }
 
     write(note) {
-        return writeFileAsync = util.promisify('db/db.json', JSON.stringify(note));
+        return writeFileAsync('db/db.json', JSON.stringify(note));
     }
 
     getNotes(){
@@ -20,7 +20,7 @@ class Notes {
         });
     }
 
-    addNote(){
+    saveNote(note){
         note.id = generateId();
         return this.getNotes().then(notes => {
             notes.push(note);
@@ -32,10 +32,6 @@ class Notes {
         .then(() => {
             return note;
         });
-    }
-
-    eraseNote(){
-
     }
 }
 

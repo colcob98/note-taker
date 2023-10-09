@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const store = require("../db/notesHandler");
+const Notes = require("../db/notesHandler");
+const notes = new Notes();
 
-router.get("/notepad", (req, res) => {
+router.get("/notes", (req, res) => {
   notes
     .getNotes()
     .then((notes) => {
@@ -10,14 +11,14 @@ router.get("/notepad", (req, res) => {
     .catch((err) => res.status(500).json(err).send("Internal Server Error"));
 });
 
-router.post("/notepad", (req, res) => {
+router.post("/notes", (req, res) => {
   notes
-    .addNote(req.body)
+    .saveNote(req.body)
     .then((note) => res.json(note))
     .catch((err) => res.status(500).json(err).send("Internal Server Error"));
 });
 
-router.delete("/notepad/:id", (req, res) => {
+router.delete("/notes/:id", (req, res) => {
   notes
     .eraseNote(req.params.id)
     .then(() => res.json({ ok: true }))
